@@ -1,65 +1,59 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Alert} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Title from './components/Title';
-import Input from './components/TextInput';
+import TextInput from './components/TextInput';
 import Button from './components/Button';
 
-export default function SignInScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+  // Variabel biasa
+  const [title, setTitle] = useState('Welcome !!!');
 
-  const handleSignIn = () => {
-    if (!username || !password) {
-      Alert.alert('Error', 'Username dan password tidak boleh kosong!');
-    } else {
-      Alert.alert('Login Info', `Username: ${username}\nPassword: ${password}`);
-    }
-  };
+  // State untuk username
+  const [username, setUsername] = useState('');
 
   return (
     <View style={styles.container}>
-      <Title text="Welcome" />
+      {/* Judul */}
+      <Text style={styles.welcome}>{title}</Text>
 
-      <Input
+      {/* Input Username */}
+      <TextInput
+        placeholder="Masukkan username anda"
         label="Username"
         value={username}
-        onChangeText={setUsername}
-        placeholder="Masukkan username anda"
-      />
-      <Input
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        placeholder="Masukkan password anda"
+        onChangeText={text => setUsername(text)}
       />
 
-      <Button text="Sign In" color="#FF6600" onPress={handleSignIn} />
-      <Button
-        text="Sign in Google"
-        color="red"
-        onPress={() => Alert.alert('Google')}
+      {/* Input Password */}
+      <TextInput
+        placeholder="Masukkan password anda"
+        label="Password"
+        secureTextEntry={true}
       />
-      <Button
-        text="Sign in Facebook"
-        color="blue"
-        onPress={() => Alert.alert('Facebook')}
-      />
-      <Button
-        text="Sign in Apple"
-        color="black"
-        onPress={() => Alert.alert('Apple')}
-      />
+
+      {/* Tombol */}
+      <Button label="Sign In" />
+      <Button label="Sign In Google" color="red" colorText="#ffffff" />
+      <Button label="Sign In Facebook" color="blue" colorText="#ffffff" />
+      <Button label="Sign In Apple" color="black" colorText="#ffffff" />
+      <Button label="Create New Account" color="#797171" colorText="#ffffff" />
     </View>
   );
-}
+};
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: '#fff',
+    justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  welcome: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });

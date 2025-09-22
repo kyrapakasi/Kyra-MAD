@@ -1,33 +1,42 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
 type Props = {
-  text: string;
-  color: string;
-  onPress: () => void;
+  label: string;
+  color?: string;
+  colorText?: string;
+  onPress?: () => void;
 };
 
-export default function Button({text, color, onPress}: Props) {
+const Button = ({
+  label,
+  color = 'orange',
+  colorText = 'black',
+  onPress,
+}: Props) => {
   return (
     <TouchableOpacity
-      style={[styles.button, {backgroundColor: color}]}
+      style={[styles.button(color)]}
+      activeOpacity={0.5}
       onPress={onPress}>
-      <Text style={styles.buttonText}>{text}</Text>
+      <Text style={[styles.buttonText(colorText)]}>{label}</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default Button;
 
 const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 15,
-    borderRadius: 8,
-    width: '100%',
+  button: (color: string) => ({
+    backgroundColor: color,
+    height: 45,
+    borderRadius: 5,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  }),
+  buttonText: (colorText: string) => ({
+    color: colorText,
+    fontSize: 16,
+  }),
 });
