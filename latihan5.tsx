@@ -6,17 +6,42 @@ import Button from './components/Button';
 
 const Login = () => {
   // Variabel biasa
-  const [title, setTitle] = useState('Welcome !!!');
+  const [title, setTitle] = useState('Registration');
 
-  // State untuk username
+  // State untuk input
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+
+  // Fungsi validasi angka untuk phone number
+  const handlePhoneChange = (text: string) => {
+    const numericValue = text.replace(/[^0-9]/g, ''); // hanya izinkan angka
+    setPhonenumber(numericValue);
+  };
+  const onRegister = () => {
+    console.log({
+      name,
+      username,
+      email,
+      address,
+      phonenumber,
+    });
+  };
 
   return (
     <View style={styles.container}>
       {/* Judul */}
-      <Text style={styles.welcome}>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
 
-      {/* Input Username */}
+      <TextInput
+        placeholder="Masukkan nama lengkap anda"
+        label="Name"
+        value={name}
+        onChangeText={text => setName(text)}
+      />
+
       <TextInput
         placeholder="Masukkan username anda"
         label="Username"
@@ -24,19 +49,35 @@ const Login = () => {
         onChangeText={text => setUsername(text)}
       />
 
-      {/* Input Password */}
       <TextInput
-        placeholder="Masukkan password anda"
-        label="Password"
-        secureTextEntry={true}
+        placeholder="Masukkan email anda"
+        label="Email"
+        value={email}
+        onChangeText={text => setEmail(text)}
+      />
+
+      <TextInput
+        placeholder="Masukkan tempat tinggal anda"
+        label="Address"
+        value={address}
+        onChangeText={text => setAddress(text)}
+      />
+
+      <TextInput
+        placeholder="Masukkan nomor telepon anda"
+        label="Phone Number"
+        value={phonenumber}
+        onChangeText={handlePhoneChange} // langsung panggil fungsi
+        keyboardType="numeric"
       />
 
       {/* Tombol */}
-      <Button label="Sign In" />
-      <Button label="Sign In Google" color="red" colorText="#ffffff" />
-      <Button label="Sign In Facebook" color="blue" colorText="#ffffff" />
-      <Button label="Sign In Apple" color="black" colorText="#ffffff" />
-      <Button label="Create New Account" color="#797171" colorText="#ffffff" />
+      <Button
+        label="Register"
+        color="#70377eff"
+        colorText="#ffffff"
+        onPress={onRegister}
+      />
     </View>
   );
 };
@@ -46,14 +87,15 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 20,
+    marginTop: 50,
+    paddingTop: 10,
+    padding: 21,
     backgroundColor: '#ffffff',
   },
-  welcome: {
-    fontSize: 22,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });
